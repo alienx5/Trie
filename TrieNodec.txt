@@ -1,0 +1,36 @@
+#include "TrieNode.h"
+
+TrieNode::TrieNode() {
+	for (int i = 0; i < CHAR_SIZE; i++) {
+		this->next[i] = nullptr;
+	}
+}
+
+bool TrieNode::hasChildren() {
+	if (next[CHAR_SIZE - 1] == nullptr) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void TrieNode::setAsLeaf() {
+	for (int i = 1; i < CHAR_SIZE; i++) {
+		next[i] = nullptr;
+	}
+	this->next[CHAR_SIZE - 1] = new TrieNode();
+}
+
+void TrieNode::setAsInteriorNode() {
+	this->next[CHAR_SIZE - 1] = nullptr;
+}
+
+bool TrieNode::isLeaf() {
+	if (next[CHAR_SIZE - 1] == nullptr) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}

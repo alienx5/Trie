@@ -1,0 +1,86 @@
+#include "Trie.h"
+
+Trie::Trie() {
+	root.setAsInteriorNode();
+}
+
+bool Trie::isEmpty() {
+	for (int i = 0; i < 26; i++) {
+		if (root.next[i] != nullptr) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool Trie::insert(string word) {
+	int index;
+	TrieNode* ptr;
+	TrieNode* tempPtr;
+
+	for (char cha : word) {
+		if (cha < 'a' || cha > 'z') {
+			return false;
+		}
+	}
+
+	ptr = &root;
+
+	for (int i = 0; i < word.length(); i++) {
+		index = word[i] - 'a';
+
+		if (!ptr->next[index]) {
+			ptr->next[index] = new TrieNode();
+		}
+		tempPtr = ptr->next[index];
+		ptr = tempPtr;
+	}
+	ptr->setAsLeaf();
+	return true;
+
+}
+
+bool Trie::remove(string word) {
+	TrieNode* ptr = &root;
+	TrieNode* tempPtr;
+	int index;
+
+	for (int i = 0; i < word.length(); i++) {
+		index = word[i] - 'a';
+
+		if (!ptr->next[index]) {
+			return false;
+		}
+		else {
+			tempPtr = ptr->next[index];
+			ptr = tempPtr;
+		}
+	}
+
+	ptr->next[26] = nullptr;
+
+	return true;
+}
+
+bool Trie::search(string word) {
+	TrieNode* ptr = &root;
+	TrieNode* tempPtr;
+	int index;
+
+	for (int i = 0; i < word.length(); i++) {
+		index = word[i] - 'a';
+
+		if (!ptr->next[index]) {
+			return false;
+		}
+		else {
+			tempPtr = ptr->next[index];
+			ptr = tempPtr;
+		}
+	}
+	return true;
+}
+
+void Trie::displayWordList() {
+
+}
